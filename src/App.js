@@ -10,6 +10,8 @@ function App() {
   const [reps, setReps] = useState([]);
   const [currentRep, setCurrentRep] =useState({})
 
+  console.log(currentRep)
+
   return (
     <div className="App">
       <nav>
@@ -33,13 +35,18 @@ function App() {
           </thead>
           <tbody>
             {reps.map((val, i) => (
-              <tr onClick={()=> findRep(val.name)} key={i}>
+              <tr onClick={()=> setCurrentRep(val)} key={i}>
                 <td>{val.name}</td>
                 <td>{val.party[0]}</td>
               </tr>
             ))}
           </tbody>
         </table>
+        <p>{currentRep.name && currentRep.name.split(" ")[0]}</p>
+        <p>{currentRep.name && currentRep.name.split(" ")[1]}</p>
+        <p>{currentRep.district}</p>
+        <p>{currentRep.phone}</p>
+        <p>{currentRep.office}</p>
       </main>
     </div>
   );

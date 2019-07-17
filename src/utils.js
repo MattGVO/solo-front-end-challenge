@@ -5,7 +5,3 @@ export function getReps(repOrSen,state,useState){
         useState(res.data.results)
     ))
 }
-
-export function findRep(name,reps){
-    console.log(name)
-}
