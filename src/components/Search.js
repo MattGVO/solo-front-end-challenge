@@ -1,7 +1,7 @@
 import React from "react";
 
 function Search(props) {
-  const {setRepOrSen, setState, getReps, repOrSen, state, setReps} = props
+  const { setRepOrSen, setState, getReps, repOrSen, state, setReps, error, setError } = props
   return (
     <div className="Search">
       <select onChange={e => setRepOrSen(e.target.value)}>
@@ -14,7 +14,8 @@ function Search(props) {
         placeholder="e.g. AZ, CA, etc"
         onChange={e => setState(e.target.value.toLowerCase())}
       />
-      <button disabled={state.length < 2} onClick={() => getReps(repOrSen, state, setReps)}>Search</button>
+      <button disabled={state.length < 2} onClick={() => getReps(repOrSen, state, setReps, setError)}>Search</button>
+      <p style={{color:"red"}}>{error && "That is not a valid state input"}</p>
     </div>
   );
 }

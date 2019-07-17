@@ -1,52 +1,37 @@
 import React, { useState } from "react";
 import "./App.css";
-import { getReps, findRep } from "./utils";
+import { getReps } from "./utils";
 import Search from "./components/Search";
-
+import Table from "./components/Table";
+import RepInfo from "./components/RepInfo";
 
 function App() {
   const [repOrSen, setRepOrSen] = useState("representatives");
   const [state, setState] = useState("");
   const [reps, setReps] = useState([]);
-  const [currentRep, setCurrentRep] =useState({})
-
-  console.log(currentRep)
+  const [currentRep, setCurrentRep] = useState({});
+  const [error, setError] = useState(false);
 
   return (
     <div className="App">
-      <nav>
-        <h1>Who's My Representative?</h1>
-      </nav>
       <main>
-        <Search 
-        repOrSen={repOrSen}
-        setRepOrSen={setRepOrSen}
-        state={state}
-        setState={setState}
-        setReps={setReps}
-        getReps={getReps}
-       />
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Party</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reps.map((val, i) => (
-              <tr onClick={()=> setCurrentRep(val)} key={i}>
-                <td>{val.name}</td>
-                <td>{val.party[0]}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <p>{currentRep.name && currentRep.name.split(" ")[0]}</p>
-        <p>{currentRep.name && currentRep.name.split(" ")[1]}</p>
-        <p>{currentRep.district}</p>
-        <p>{currentRep.phone}</p>
-        <p>{currentRep.office}</p>
+        <h1>Who's My Representative?</h1>
+        <Search
+          repOrSen={repOrSen}
+          setRepOrSen={setRepOrSen}
+          state={state}
+          setState={setState}
+          setReps={setReps}
+          getReps={getReps}
+          error={error}
+          setError={setError}
+        />
+        {reps.length > 0 && (
+          <div className="info-container">
+            <Table reps={reps} setCurrentRep={setCurrentRep} />
+            <RepInfo currentRep={currentRep} />
+          </div>
+        )}
       </main>
     </div>
   );
