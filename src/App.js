@@ -1,24 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { getReps, findRep } from "./utils";
+import Search from "./components/Search";
+
 
 function App() {
+  const [repOrSen, setRepOrSen] = useState("representatives");
+  const [state, setState] = useState("");
+  const [reps, setReps] = useState([]);
+  const [currentRep, setCurrentRep] =useState({})
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <nav>
+        <h1>Who's My Representative?</h1>
+      </nav>
+      <main>
+        <Search 
+        repOrSen={repOrSen}
+        setRepOrSen={setRepOrSen}
+        state={state}
+        setState={setState}
+        setReps={setReps}
+        getReps={getReps}
+       />
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Party</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reps.map((val, i) => (
+              <tr onClick={()=> findRep(val.name)} key={i}>
+                <td>{val.name}</td>
+                <td>{val.party[0]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </main>
     </div>
   );
 }
